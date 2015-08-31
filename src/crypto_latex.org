@@ -103,7 +103,7 @@ the time you get to the end of this tutorial I hope you'll agree with
 me.}
 
 As a final note I'd say that no cryptographic system is perfect -- you
-just have decide how much effort an adversary is prepared to put into
+just have to decide how much effort an adversary is prepared to put into
 breaking your system. If you were designing a system to manage
 financial transactions you should put a lot of effort into making it
 secure.  If you want to build a flower-arranging website you'd be less
