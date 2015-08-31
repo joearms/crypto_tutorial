@@ -1,0 +1,57 @@
+\documentclass[article, oneside, 11pt]{memoir}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{url}
+\usepackage{blindtext}
+\usepackage{color}
+\usepackage{graphicx}
+
+%% so I can use sout
+\usepackage{ulem}
+
+%% framed boxes for code
+\usepackage{fancyvrb}
+
+%% hyperlinks in contents
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linktoc=all,
+  citecolor=blue,
+  filecolor=black,
+  linkcolor=blue,
+  urlcolor=blue
+}
+
+\usepackage{xcolor}
+\usepackage{newverbs}
+
+\newverbcommand{\cverb}{\color{red}}{}
+
+\newverbcommand{\bverb}
+  {\begin{lrbox}{\verbbox}}
+  {\end{lrbox}\colorbox{gray!30}{\box\verbbox}}
+
+\newcommand\erlFileName[1]{\textcolor[rgb]{0,0,1}{\small{\textbf{#1}}}}
+
+\reparticle
+
+\chapterstyle{hangnum}
+\hangsecnum
+
+\title{{\Huge\ Cryptography Tutorial}}
+\author{Joe Armstrong}
+\date{\copyright{}2015 Joe Armstrong\\
+  All Rights Reserved} 
+\setlength\parindent{0pt}
+\setlength{\parskip}{11pt}
+
+\begin{document}
+\frontmatter
+\maketitle
+\tableofcontents
+\mainmatter
+\include{expand}
+\end{document}
