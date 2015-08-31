@@ -94,7 +94,7 @@ implementations are correct and secure.
 In defense of my position I'd point out that many well known crypto
 algorithms in the public domain have been subject to
 large scale peer-review \textsl{despite this they have been found to contain
-security holes}. One of the response for this (not the only) is that
+security holes}. One of the responses to this (not the only) is that
 they are written in imperative language like C \textsl{which are
 extremely difficult to understand}. \footnote{In my opinion virtually
 all C is extremely difficult to understand, FPLs with no mutable state
