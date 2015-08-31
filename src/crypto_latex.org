@@ -122,7 +122,7 @@ works as we progress throughout this tutorial.
 ** Salting
 
 If we encode the same thing many times we would like to get different
-crypto text for each encoding. This is to make the attackers life more
+crypto text for each encoding. This is to make the attacker's life more
 difficult. A common way to do this is to add ``salt'' to the to the
 password that is used to encrypt the data.  The salt (which is a
 random number) is transmitted together with the crypto text, this
