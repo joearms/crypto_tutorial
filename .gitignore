@@ -1,3 +1,11 @@
 *~
 *.tmp
 \#*
+*.beam
+*.toc
+*.out
+*.log
+*.aux
+src/expand.tex
+not_in_git/*
+src/crypto.pdf

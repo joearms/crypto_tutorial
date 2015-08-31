@@ -30,16 +30,12 @@ When you're happy do
 
 Check ./crypto_tutorial.pdf
 
-If you're happy do
-
-   > make clean
-
 And *then* push changes in ./src to me
 
-make_publish deletes the tempory files and creates a top level PDF
-This is ``bad practise'' since we should only commit source code and
-not generated outsput to the repository. BUT it's there so people can read
-the result without having to build everything for themselves.
+make_publish creates a top level PDF This is ``bad practice'' since we
+should only commit source code and not generated output to the
+repository. BUT it's there so people can read the result without
+having to build everything for themselves.
 
-If you a re suggesting change don't commit the crypto_tutorial.pdf
+If you suggest a change don't commit crypto_tutorial.pdf
 to the archive.
