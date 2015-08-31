@@ -44,7 +44,7 @@ between pairs of Erlang processes. This is so we can concentrate on
 the algorithms themselves and not be concerned with details of how
 data is transported between clients and servers. For our purposes it
 suffices to assume that data can be sent between clients and servers
-and now \textsl{how} that data is transmitted. Turning distributed
+and not \textsl{how} that data is transmitted. Turning distributed
 algorithms involving message passing between processes can easily be
 transformed to algorithms that use TCP sockets or some other
 communication mechanism to transmit the data.
@@ -72,7 +72,7 @@ Applications are made by combining the basic methods. I'll deal with:
 + Self-certifying File Systems
 
 As you'll see no one technique dominates. To make an application
-we will have to make several design choices. We'll choose a 
+we will have to make several design choices. We'll choose a
 cryptographic strength\footnote{How many bits in the keys, how
 paranoid are we?.} and a set of algorithms that work together.
 
@@ -94,7 +94,7 @@ implementations are correct and secure.
 In defense of my position I'd point out that many well known crypto
 algorithms in the public domain have been subject to
 large scale peer-review \textsl{despite this they have been found to contain
-security holes}. One of the response for this (not the only) is that
+security holes}. One of the responses to this (not the only) is that
 they are written in imperative language like C \textsl{which are
 extremely difficult to understand}. \footnote{In my opinion virtually
 all C is extremely difficult to understand, FPLs with no mutable state
@@ -103,7 +103,7 @@ the time you get to the end of this tutorial I hope you'll agree with
 me.}
 
 As a final note I'd say that no cryptographic system is perfect -- you
-just have decide how much effort an adversary is prepared to put into
+just have to decide how much effort an adversary is prepared to put into
 breaking your system. If you were designing a system to manage
 financial transactions you should put a lot of effort into making it
 secure.  If you want to build a flower-arranging website you'd be less
@@ -122,12 +122,12 @@ works as we progress throughout this tutorial.
 ** Salting
 
 If we encode the same thing many times we would like to get different
-crypto text for each encoding. This is to make the attackers life more
+crypto text for each encoding. This is to make the attacker's life more
 difficult. A common way to do this is to add ``salt'' to the to the
 password that is used to encrypt the data.  The salt (which is a
-random number) is transmitted together with the crypto text, this
+random number) is transmitted together with the crypto text; this
 ensures that if the same text is encrypted many times each encryption
-will result in different crypto text. 
+will result in different crypto text.
 
 Note: encrypting known fragments of text in the input text help crack
 the enigma machine in WWII and lead to the development of computers.
@@ -146,12 +146,12 @@ were applied. This is very simple if each step is itself
 has an inverse. So if we encode data by performing a set of
 transformations:
 
-$ Out = F(G(H(I(In)))) $ 
+$ Out = F(G(H(I(In)))) $
 
 Then all we have to do is invert each step:
 
 $ In = I^{-1}(H^{-1}(G^{-1}(F^{-1}(Out)))) $
-   
+
 In Erlang when encoding we might do something like:
 
 \begin{verbatim}
@@ -171,8 +171,8 @@ And when decoding we'd do the steps in the opposite order:
     end
 \end{verbatim}
 
-* Symmetric Algorithms 
-  
+* Symmetric Algorithms
+
 We'll start with the simplest of algorithms. These use the same key
 for both encryption and decryption.  These are called ``symmetric''
 algorithms.  We'll look at a number of different symmetric algorithms,
@@ -214,14 +214,14 @@ to be encrypted.
 To decrypt the data we just XOR the encrypted data with the same byte
 stream to recover the original data. This works because:
 
-     (M xor R) xor R = M 
+     (M xor R) xor R = M
 
 A LCG generates random numbers with a recurrence relation of the form
 \verb|X[k+1] = (aX[k] + c) mod n| the WikiPedia page
 \url{https://en.wikipedia.org/wiki/Linear_congruential_generator} gives a
 number of values for \verb+a+ \verb+c+ and \verb+n+
 
-\verb+mod+ is called \verb+rem+ in Erlang.  
+\verb+mod+ is called \verb+rem+ in Erlang.
 
 We can easily turn a LCG into an encryption routine like this:
 
@@ -234,7 +234,7 @@ break so don't use it in practice.
 
 The problem with the previous algorithm is that if we encrypt the
 same text many times with the same password the encrypted text is
-always the same. 
+always the same.
 
 To remedy this we generate a random string each time and
 append it to the password:
@@ -270,7 +270,7 @@ Encryption can operate in two modes:
 \begin{itemize}
 \item Batch encryption --  all the data to be encrypted is available at
 the same time and the data size is relatively small.
-\item Stream encryption  -- 
+\item Stream encryption  --
 the data is encrypted in chucks and we use a synchronized pair of senders and receivers.
 \end{itemize}
 
@@ -287,7 +287,7 @@ we call:
 
     {S1, C1} = crypto:stream_encrypt(S0, Bin)
 
-\verb+C1+ is the crypto text and \verb+S1+ is the new state of the 
+\verb+C1+ is the crypto text and \verb+S1+ is the new state of the
 encrypter which must be used in the next encryption call.\footnote{Yes
 it's a Monad!}
 
@@ -309,7 +309,7 @@ I've include a small test hardness so we can run the code.
 
 This code is very simple. To run this in a real application
 we'd use a socket TCP interface and a ``middle man''
-pattern\footnote{Read my Erlang Book to see how :-)}. 
+pattern\footnote{Read my Erlang Book to see how :-)}.
 
 * Hashing and Padding
 
@@ -415,7 +415,7 @@ encrypt the data and a different key is used to decrypt the data.
 Use of different keys is called \textsl{Asymmetric Encryption}.
 
 In this tutorial I'll take a detailed look at
-The RSA\footnote{Named after Don Rivest, Adi Shamir and Leonard Adleman.}  
+The RSA\footnote{Named after Don Rivest, Adi Shamir and Leonard Adleman.}
 algorithm. RSA makes use of two keys \verb+{E,N}+ and
 \verb+{D,N}+.
 
@@ -457,11 +457,11 @@ Creating a key pair is very easy:
 \verb+gen_prime(K, N)+ makes a prime of \verb+K+ bits that is
  relatively prime to \verb+N+.
 
-\verb+inv(A, B)+ computes \verb+C+ if it exists such that 
+\verb+inv(A, B)+ computes \verb+C+ if it exists such that
 \verb+A*C mod B = 1+ (ie $A^{-1} mod \ B$)\footnote{This is called the modular
 inverse, and is computed using the extended Euclidean algorithm.}.
 
-Note: If we know that \verb+P+ and \verb+Q+ are prime 
+Note: If we know that \verb+P+ and \verb+Q+ are prime
 we can can compute \verb+N = P * Q+ but given \verb+N+ we cannot
 easily recover \verb+P+ and \verb+Q+.
 
@@ -474,7 +474,7 @@ For example:
     3760483207475282540887
     3> N = P*Q.
     14141233953703588876397602262890002826746769
-    4> ez_crypt:is_probably_prime(N).  
+    4> ez_crypt:is_probably_prime(N).
     false
     5> ez_crypt:is_probably_prime(P).
     true.
@@ -570,7 +570,7 @@ SHA1), with this design choice the code is very simple:
 ># {include_function, "ez_crypt_rsa.erl", encrypt_3, 2}.
 
 Calling \verb+encrypt_2+ make the code \textsl{very} simple since
-\verb+encrypt_2+ adds padding (and indirectly salting). 
+\verb+encrypt_2+ adds padding (and indirectly salting).
 
 and decrypting is easy:
 
@@ -612,7 +612,7 @@ and an encrypted file with the private key that is password protected:
 We can run this:
 
 
-    > ez_crypt:make_rsa_keyfiles("joe", "erlang@gmail.com", 
+    > ez_crypt:make_rsa_keyfiles("joe", "erlang@gmail.com",
                                  1024, <<"verysecret">>).
     ok
 
@@ -658,8 +658,8 @@ We start by generating an RSA key pair:
     ssh-keygen -t rsa -b 1024 -C "joe@somewehere.com"
     Generating public/private rsa key pair.
     Enter file in which to save the key (/Users/joearmstrong/.ssh/id_rsa): joe_rsa
-    Enter passphrase (empty for no passphrase): 
-    Enter same passphrase again: 
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
     Your identification has been saved in joe_rsa.
     Your public key has been saved in joe_rsa.pub.
 \end{verbatim}
@@ -695,7 +695,7 @@ As an example, suppose we want to share the secret \verb+hello+ using
 seven shares, so that any three shares unlock the secret. We can
 generate the shares like this:
 
-    > L=shamir:share(<<"hello">>, 3,7).                                                
+    > L=shamir:share(<<"hello">>, 3,7).
     [{share,3,1,<<206,145,84,97,217>>},
      {share,3,2,<<229,208,230,155,102>>},
      {share,3,3,<<67,36,222,150,208>>},
@@ -725,7 +725,7 @@ validates the content of another file.
 ** Application 1: Challenge-Response
 
 The Challeng-Response algorithm ensures that no plain text passwords
-is sent over the wire. 
+is sent over the wire.
 
 Here's an example. Assume the \verb+joe+ has password
 \verb+"bingo"+. The interaction between a client and server is as follows:
@@ -774,7 +774,7 @@ text passwords - better methods exist.
 We'll first talk about how to authenticate a single file.
 
 The easiest way to authenticate something is to generate a checksum of
-the file and sign the checksum with your private key. I'll assume the 
+the file and sign the checksum with your private key. I'll assume the
 public and private keys are stored in files:
 
 ># {include_function, "ez_crypt.erl", sign_file, 3}.
@@ -808,9 +808,9 @@ Secret message streams are streams of messages sent to a server where
 only the sever can decode the messages. The clients are supplied with
 a pre-compiled version of the server public key. This has the
 advantage that no password management in the client is necessary.
-  
+
 Each message is encrypted with a new random key. The key is encoded with
-the public key of the server. 
+the public key of the server.
 
 ># {include_function, "ez_crypt.erl", encrypt_message, 2}.
 
@@ -832,26 +832,26 @@ TLS, very much simplified works like this:
 
 \begin{verbatim}
          Client                       Server
-      
+
 
          ---->----
          ClientHello
 
                                    ----------<-----
-                                     {hello, ServerPub}  
+                                     {hello, ServerPub}
 
 
          {Rpub,Rpri} = random_rsa_key()
          S1 = random_session_key(),
 
-         -------->-------- 
+         -------->--------
          {key1, enc(ServerPub,{S1,Rpub})}
 
                                       Server decodes message
                                       and recovers S1, Rpub
 				      (only server can do this)
                                       S2 = random_session_key()
-                                      
+
                                          {key2, enc(Rpub, S2})
                                       ------------<--------
 
@@ -882,7 +882,7 @@ And the server:
 
 ># {include_function, "tls.erl", server,0}.
 
-And we can run it like this:\footnote{Take a look in tls.erl for more details}.	   
+And we can run it like this:\footnote{Take a look in tls.erl for more details}.
 
 \begin{verbatim}
 4> tls:test().
@@ -912,10 +912,10 @@ know the public key of the server. Instead it knows the SHA1 checksum
 of the public key of the server.
 
 It's called ``Self certifying'' since the server provides a public
-key which is not signed by a certification authority. 
+key which is not signed by a certification authority.
 
 The client can then request the public key from anywhere that claims
-to know what the public key of the server is. Once it has obtained 
+to know what the public key of the server is. Once it has obtained
 a response to the public key request it can check the key using the
 SHA1 checksum to make sure that the key is correct. Anybody can provide
 the key and it can be cached by the client.
@@ -969,7 +969,7 @@ converts it to an integer. For example:
     16288231860616810451978163722812339303633551557
 
 ** Experiment 2 - Generating a random integer that can be represented in a specific number of bits
-   
+
 The next thing we might want to do is create a random integer of
 \textsl{exactly} \verb+K+ bits. This is done with
 \verb+ez_crypt_math:k_bit_random_integer+. For example:
@@ -980,13 +980,13 @@ The next thing we might want to do is create a random integer of
     40
     3> ez_crypt_math:bsize(ez_crypt_math:k_bit_random_integer(100)).
     100
-    4> ez_crypt_math:bsize(ez_crypt_math:k_bit_random_integer(2048)).  
+    4> ez_crypt_math:bsize(ez_crypt_math:k_bit_random_integer(2048)).
     2048
 
 \verb+bsize(N)+ returns the number of bits necessary to represent the
 integer \verb+N+.
 
-We use \verb+ez_crypt_math:k_bit_random_integer+ to generate  
+We use \verb+ez_crypt_math:k_bit_random_integer+ to generate
 RSA keys integers.
 
 
@@ -1083,7 +1083,7 @@ values to a maximum value or $N$ which makes things easier to work
 with.
 
 ** A couple of theorems
-   
+
 The correctness of RSA depends upon two theorems:
 
 Fermat's little theorem: $a^p \equiv \ a \ mod \ p$ if $p$ is a prime
@@ -1094,7 +1094,7 @@ coprime. $\phi(N)$ is Eulers totient function\footnote{the number of integers
 from 1 to $N$ that are coprime to $N$.}
 
 ** Prime number testing
-Prime number testing makes use of Fermats little theorem. 
+Prime number testing makes use of Fermats little theorem.
 
 Recall that
  $a^p \equiv \ a \ mod \ p$ if $p$ is a prime
@@ -1112,11 +1112,11 @@ are called ``false witnesses.''
 The Miller Rabin test is a probabilistic variant of the Fermat
 test. Each iteration of the test decreases the probability of error
 this is why we can say that a large number $p$ is ``probably prime''
-not that it is ``definitely a prime.'' We can however say that a 
+not that it is ``definitely a prime.'' We can however say that a
 large number is composite without being able to compute the factors.
 
 This is one of the frustrating things about RSA - we can easily prove
-that the modules is composite - but we can't compute the factors. 
+that the modules is composite - but we can't compute the factors.
 This is a good thing \texttrademark - if it were false the worlds financial system
 would break down.
 
@@ -1169,7 +1169,7 @@ world record\footnote{To put this number in perspective, the earth has
 about $10^{50}$ atoms!} - despite this I've often seen recommendations
 for 2048 bits (ie $10^{883}$ times more difficult than RSA 1024).
 
-I guess we're expecting aliens real soon ... 
+I guess we're expecting aliens real soon ...
 
 ** How big Hashes, which hash should I choose?
 
@@ -1269,7 +1269,7 @@ Computes the greater common denominator of \verb+A+ and \verb+B+
 \end{description}
 
 Some of these are pretty simple, \verb+pow(A, B, M)+ computes
-\verb+A^B mod M+. To compute this we proceed as follows: if 
+\verb+A^B mod M+. To compute this we proceed as follows: if
 \verb+B+ is even we compute \verb+pow(A, B div 2, M)+ and square the result
 (modulo \verb+M+). If \verb+B+ is odd and greater than one
 we compute \verb+P = pow(A, (B-1)div 2, M)+
@@ -1297,9 +1297,9 @@ Solve \verb|28x - 25y = 1| for integer  \verb+x+ and \verb+y+, solution
 These solutions are computed as follows:
 
 \begin{verbatim}
-> lin:solve(12,5).          
+> lin:solve(12,5).
 {-2,-5}
-> lin:solve(28,25).    
+> lin:solve(28,25).
 {-8,-9}
 \end{verbatim}
 
@@ -1319,7 +1319,7 @@ regrouping       2(x + 2a) + a   = 1
 let b = x + 2a	                       (4)
 
 then	         2b + a = 1	       (5)
-	
+
 A solution to this is b = 1, a = -1
 
 Then from (4) x = b - 2a = 1 - 2(-1) = 3    (6)
@@ -1353,7 +1353,7 @@ The above algorithm is easily encoded as:
 Fortunately Erlang has bignums so that:
 
 \begin{verbatim}
-> lin:solve(2812971937912739173,2103789173917397193791739173). 
+> lin:solve(2812971937912739173,2103789173917397193791739173).
 {-997308564012181922485842000,-1333499116160234237}
 \end{verbatim}
 
@@ -1365,7 +1365,7 @@ Finally \verb+inv(A, B)+ which computes
 * LIBNACL
 
   This is an ``easy to use'' crypto library.
-  
+
   Here is a quote from the paper of  Bernstein, Lange and Schwabe
   which describes the library:
 
@@ -1388,7 +1388,7 @@ etc.:
 Quote from: \url{http://cr.yp.to/highspeed/coolnacl-20120725.pdf}
 \end{tabular}
 
-You'll notice the similarity between this list and some of the 
+You'll notice the similarity between this list and some of the
 contortions we've been through earlier in this tutorial.
 
 + Erlang binding to NaCl in the form of libsodium \url{https://github.com/jlouis/erlang-nacl}.
