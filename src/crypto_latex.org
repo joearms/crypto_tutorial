@@ -230,6 +230,21 @@ We can easily turn a LCG into an encryption routine like this:
 Note this code is for illustration only, this would be very easy to
 break so don't use it in practice.
 
+To get an idea of how good the LCG we have used, we can
+generate pairs of random bytes, and use them as the \verb+X+ and
+\verb+Y+ coordinates of points in a 2-D 256 x 256 scatter plot. The
+resulting plot is as follows:
+
+\includegraphics[width=8.0cm]{lgc1.png}
+
+As you can see, the result is not very random.
+Using \verb+crypto:rand_bytes(K)+ we obtain:
+
+\includegraphics[width=8.0cm]{crypto1.png}
+
+Which looks much better. The code for this can be found in
+\verb+plot_random.erl+ in the project archive.
+
 ** Adding Salt
 
 The problem with the previous algorithm is that if we encrypt the
