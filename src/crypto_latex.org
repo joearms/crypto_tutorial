@@ -123,13 +123,13 @@ works as we progress throughout this tutorial.
 
 If we encode the same thing many times we would like to get different
 crypto text for each encoding. This is to make the attacker's life more
-difficult. A common way to do this is to add ``salt'' to the to the
+difficult. A common way to do this is to add ``salt'' to the
 password that is used to encrypt the data.  The salt (which is a
 random number) is transmitted together with the crypto text; this
 ensures that if the same text is encrypted many times each encryption
 will result in different crypto text.
 
-Note: encrypting known fragments of text in the input text help crack
+Note: Encrypting known fragments of text in the input text helped crack
 the enigma machine in WWII and lead to the development of computers.
 
 
@@ -140,10 +140,10 @@ the enigma machine in WWII and lead to the development of computers.
 ** Envelopes
 
 Often we apply several transformations to the input data. We salt
-data, then pad it then encrypt it and so on. To recover the data we
-reverse each step in the opposite order to which the transformations
+the data, then pad it and encrypt it and so on. To recover the data we
+perform the steps in the opposite order to which the transformations
 were applied. This is very simple if each step is itself
-has an inverse. So if we encode data by performing a set of
+invertible. So, if we encode data by performing a set of
 transformations:
 
 $ Out = F(G(H(I(In)))) $
@@ -152,7 +152,7 @@ Then all we have to do is invert each step:
 
 $ In = I^{-1}(H^{-1}(G^{-1}(F^{-1}(Out)))) $
 
-In Erlang when encoding we might do something like:
+In Erlang to encode some data we might do something like:
 
 \begin{verbatim}
     Bin1 = encrypt(Bin, SymKey),
@@ -160,7 +160,7 @@ In Erlang when encoding we might do something like:
     Bin2 = term_to_binary({packet, Sha, Bin1}),
 \end{verbatim}
 
-And when decoding we'd do the steps in the opposite order:
+To decoding this we'd do the steps in the opposite order:
 
 \begin{verbatim}
     {packet, Sha, Bin1} = binary_to_term(Bin2),
@@ -177,7 +177,7 @@ We'll start with the simplest of algorithms. These use the same key
 for both encryption and decryption.  These are called ``symmetric''
 algorithms.  We'll look at a number of different symmetric algorithms,
 the first few (one-time pads and LCGs) are ``toy'' implementations and
-just here for illustrative purposes. For production applications some
+just here for illustrative purposes. For production applications, some
 AES variant or RC4 would be a better choice.
 
 ** One time pad
@@ -202,7 +202,7 @@ And we decrypt using the same pad:
 
 > symmetric:encrypt_0(Pad, C).
 
-One time pads are extremely secure providde we can securely distribute the pad to
+One time pads are extremely secure provided we can securely distribute the pad to
 both parties in advance. There is no algorithm to crack.
 
 ** Xor Text with a stream of random bytes
@@ -251,7 +251,7 @@ The problem with the previous algorithm is that if we encrypt the
 same text many times with the same password the encrypted text is
 always the same.
 
-To remedy this we generate a random string each time and
+To remedy this, we generate a random string each time and
 append it to the password:
 
 ># {include_function, "symmetric.erl", encrypt_2, 2}.
@@ -268,7 +268,7 @@ wrapper around the original code.
 
 LCGs are pretty poor sources of random numbers, I've just used them
 here for illustration. A better symmetric algorithm is AES256 which is
-part of the Advance Encryption standard. AES assumes the data to be
+part of the Advance Encryption Standard. AES assumes the data to be
 encrypted is a multiple of 16 bytes log and requires salting. A simple
 interface the the Erlang crypto application is in the module
 \verb+ez_crypt_aes.erl+
@@ -286,7 +286,7 @@ Encryption can operate in two modes:
 \item Batch encryption --  all the data to be encrypted is available at
 the same time and the data size is relatively small.
 \item Stream encryption  --
-the data is encrypted in chucks and we use a synchronized pair of senders and receivers.
+the data is encrypted in chunks and we use a synchronized pair of senders and receivers.
 \end{itemize}
 
 Stream encryption is typically used when the data to be encrypted is
@@ -297,7 +297,7 @@ This kind of code has an initialization step:
 
     S0 = crypto:stream_init(Type, Password)
 
-\verb+S0+ is an initial state. When new data \verb+Bin+ is be encrypted
+\verb+S0+ is an initial state. When new data \verb+Bin+ is to be encrypted
 we call:
 
     {S1, C1} = crypto:stream_encrypt(S0, Bin)
@@ -328,7 +328,7 @@ pattern\footnote{Read my Erlang Book to see how :-)}.
 
 * Hashing and Padding
 
-Before we move to public key algorithms we'll have a quick look at hashing
+Before we move to public key algorithms, we'll have a quick look at hashing
 and padding, since we'll need these in the next chapter.
 
 ** Hashing
@@ -370,11 +370,11 @@ There are two ways of calling it:
         S2 = crypto:hash_update(S1, "world"),
         crypto:hash_final(S2).
 
-The first example can be used when the data whose hash value is needed
-is small.  The second where the data concerned is large. For example, if
-we wanted to compare digital images of a few MBytes we could use
-the first method, but to compute the SHA1 checksum of a GByte movie we
-would use the second method with code like the following:
+The first example can be used when the data involved is small.  The
+second where the data concerned is large. For example, if we wanted to
+compare digital images of a few MBytes we could use the first method,
+but to compute the SHA1 checksum of a GByte movie we would use the
+second method with code like the following:
 
 !! include_tagged:ez_crypt.erl:filehash:
 
