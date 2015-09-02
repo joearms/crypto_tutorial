@@ -1056,7 +1056,7 @@ code.
 * Miscellaneous
 ** A little math
 
-I'm not going to tell you what a prime number, if you don't know
+I'm not going to tell you what a prime number is, if you don't know
 you're probably reading the wrong tutorial.
 
 A lot of crypto algorithms involve computing $A^B$ and $A^B\ mod\ C$.
@@ -1174,14 +1174,14 @@ I guess we're expecting aliens real soon ...
 ** How big Hashes, which hash should I choose?
 
 I've used SHA1 in this tutorial. And \textsl{Yes I know it's not
-recommended.} SHA256 is now recommended\footnote{I known, aliens
+recommended.} SHA256 is now recommended\footnote{I know, aliens
 again, I've seen Mars Attacks}.
 
 ** What is a good symmetric encryption algorithm?
 
-I've uses AES256 -- I think it's ok. I'm not actually writing
+I've used AES256 -- I think it's ok. I'm not actually writing
 ``super duper secure systems'' so I just want to stop \textsl{script
-kiddies} from messing with my stuff - not profession attackers.
+kiddies} from messing with my stuff - not professionnal attackers.
 
 ** Sidechannel attacks
 
@@ -1200,7 +1200,7 @@ Here are some example of side channels:
 + Planting a password sniffer in the firmware of the keyboard
 + Measuring the timing of internal signals when a password is entered
 + Trying all the small strings on your hard disk to see if they are passwords
-+ analyzing the swap area of your disk
++ Analyzing the swap area of your disk
 + Torture
 
 As an example of side channels you might like to consult the
