@@ -163,11 +163,11 @@ In Erlang when encoding we might do something like:
 And when decoding we'd do the steps in the opposite order:
 
 \begin{verbatim}
-    {packet, Sha, Bin1} = binary_to_term(Bin),
-    Bin2 = decode(Bin1, SymKey),
-    case sha(Bin2) of
+    {packet, Sha, Bin1} = binary_to_term(Bin2),
+    Bin = decode(Bin1, SymKey),
+    case sha1(Bin1) of
         Sha -> ...;
-	_   -> exit(bad_packet)
+        _   -> exit(bad_packet)
     end
 \end{verbatim}
 
