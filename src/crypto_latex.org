@@ -1181,7 +1181,7 @@ again, I've seen Mars Attacks}.
 
 I've used AES256 -- I think it's ok. I'm not actually writing
 ``super duper secure systems'' so I just want to stop \textsl{script
-kiddies} from messing with my stuff - not professionnal attackers.
+kiddies} from messing with my stuff - not professional attackers.
 
 ** Sidechannel attacks
 
