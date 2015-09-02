@@ -7,7 +7,7 @@ this tutorial is in the archive.
 
 ** Understanding not code
 
-In this tutorial I'm going to introduce a number of simple
+In this tutorial, I'm going to introduce a number of simple
 cryptographic techniques that can be used to build secure
 applications.  The main goal of the tutorial is to understand a small
 number of well-known cryptographic techniques and to be able to apply
@@ -32,21 +32,21 @@ incomprehensible C code, and has also had buggy code in it in the past.}
 Once you have understood the algorithms you will be able to make
 informed decisions over which algorithm to use and how to combine them.
 If efficiency is your goal over personal understanding, then you might
-like to trust some third part library, so I'll wind up with a
+like to trust some third party library, so I'll wind up with a
 introduction to NACL.
 
 In a tutorial like this the problem is ``what to leave out'' rather
 than ``what to include'' -- so I've left out a lot of detail.
 
-In many cases distributed algorithms which involve the interaction
+In many cases, distributed algorithms which involve the interaction
 between a client and server have been programmed as interactions
 between pairs of Erlang processes. This is so we can concentrate on
 the algorithms themselves and not be concerned with details of how
 data is transported between clients and servers. For our purposes it
 suffices to assume that data can be sent between clients and servers
 and not \textsl{how} that data is transmitted. Turning distributed
-algorithms involving message passing between processes can easily be
-transformed to algorithms that use TCP sockets or some other
+algorithms, involving message passing between processes, can easily be
+transformed to algorithms that uses TCP sockets or some other
 communication mechanism to transmit the data.
 
 ** The Basic Methods
@@ -71,29 +71,29 @@ Applications are made by combining the basic methods. I'll deal with:
 + Transport Layer Security
 + Self-certifying File Systems
 
-As you'll see no one technique dominates. To make an application
+As you'll see, no one technique dominates. To make an application,
 we will have to make several design choices. We'll choose a
 cryptographic strength\footnote{How many bits in the keys, how
 paranoid are we?.} and a set of algorithms that work together.
 
 ** Warning
 
-I guess I should give a word of warning before starting. I'm not a
+I guess, I should give a word of warning before starting. I'm not a
 cryptography expert and the code I present has not been subject to
 review - on the other hand the algorithms are so simple and they
-closely follow the math that hopefully they are correct.
+closely follow the math that hopefully, they are correct.
 
-I had a choice - I could \textsl{trust} other peoples code that I
+I had a choice - I could \textsl{trust} other people's code that I
 cannot review and understand myself, or I can write my own code that
 I do understand. For algorithms like RSA, where the math is simple and
-the code borders on the trivial I choose the latter.
+the code borders on the trivial, I choose the latter.
 
-For algorithms like AES and SHA1 I'll trust that the reference
+For algorithms like AES and SHA1, I'll trust that the reference
 implementations are correct and secure.
 
-In defense of my position I'd point out that many well known crypto
+In defense of my position, I'd point out that many well known crypto
 algorithms in the public domain have been subject to
-large scale peer-review \textsl{despite this they have been found to contain
+large scale peer-review \textsl{despite this, they have been found to contain
 security holes}. One of the responses to this (not the only) is that
 they are written in imperative language like C \textsl{which are
 extremely difficult to understand}. \footnote{In my opinion virtually
@@ -102,7 +102,7 @@ that closely follow the crypto math are far easier to understand.  By
 the time you get to the end of this tutorial I hope you'll agree with
 me.}
 
-As a final note I'd say that no cryptographic system is perfect -- you
+As a final note, I'd say that no cryptographic system is perfect -- you
 just have to decide how much effort an adversary is prepared to put into
 breaking your system. If you were designing a system to manage
 financial transactions you should put a lot of effort into making it
