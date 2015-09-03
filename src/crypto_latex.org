@@ -140,10 +140,10 @@ the enigma machine in WWII and lead to the development of computers.
 ** Envelopes
 
 Often we apply several transformations to the input data. We salt
-data, then pad it, then encrypt it and so on. To recover the data, we
-reverse each step in the opposite order to which the transformations
-were applied. This is very simple, if each step is itself
-has an inverse. So, if we encode data by performing a set of
+the data, then pad it and encrypt it and so on. To recover the data we
+perform the steps in the opposite order to which the transformations
+were applied. This is very simple if each step is itself
+invertible. So, if we encode data by performing a set of
 transformations:
 
 $ Out = F(G(H(I(In)))) $
@@ -152,7 +152,7 @@ Then all we have to do is invert each step:
 
 $ In = I^{-1}(H^{-1}(G^{-1}(F^{-1}(Out)))) $
 
-In Erlang when encoding, we might do something like:
+In Erlang to encode some data we might do something like:
 
 \begin{verbatim}
     Bin1 = encrypt(Bin, SymKey),
@@ -160,7 +160,7 @@ In Erlang when encoding, we might do something like:
     Bin2 = term_to_binary({packet, Sha, Bin1}),
 \end{verbatim}
 
-And when decoding we'd do the steps in the opposite order:
+To decoding this we'd do the steps in the opposite order:
 
 \begin{verbatim}
     {packet, Sha, Bin1} = binary_to_term(Bin2),
@@ -202,7 +202,7 @@ And we decrypt using the same pad:
 
 > symmetric:encrypt_0(Pad, C).
 
-One time pads are extremely secure provided, we can securely distribute the pad to
+One time pads are extremely secure provided we can securely distribute the pad to
 both parties in advance. There is no algorithm to crack.
 
 ** Xor Text with a stream of random bytes
@@ -370,11 +370,11 @@ There are two ways of calling it:
         S2 = crypto:hash_update(S1, "world"),
         crypto:hash_final(S2).
 
-The first example can be used when the data, whose hash value is needed
-is small.  The second where the data concerned is large. For example, if
-we wanted to compare digital images of a few MBytes we could use
-the first method, but to compute the SHA1 checksum of a GByte movie we
-would use the second method with code like the following:
+The first example can be used when the data involved is small.  The
+second where the data concerned is large. For example, if we wanted to
+compare digital images of a few MBytes we could use the first method,
+but to compute the SHA1 checksum of a GByte movie we would use the
+second method with code like the following:
 
 !! include_tagged:ez_crypt.erl:filehash:
 
