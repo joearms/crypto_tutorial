@@ -264,7 +264,7 @@ Note that in both encryption and decryption  we reused the
 code that encrypted the original data -- salting is done with a small
 wrapper around the original code.
 
-** AES265
+** AES256
 
 LCGs are pretty poor sources of random numbers, I've just used them
 here for illustration. A better symmetric algorithm is AES256 which is
