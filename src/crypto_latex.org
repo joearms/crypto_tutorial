@@ -1088,7 +1088,7 @@ compute $S=M^y$. $S$ is now a ``shared secret'' - both Ann and Bob
 know $S$ anybody watching the communication seems only $M$ so they
 cannot figure out the value of $S$ without knowing $y$ or $y$.
 
-In it's various forms the fact that $(K^x)^y = (K^y)^x$ pops up in
+In its various forms the fact that $(K^x)^y = (K^y)^x$ pops up in
 many algorithms and is the basic reason why RSA and Diffie-Hellman
 work.
 
