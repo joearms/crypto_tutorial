@@ -1078,13 +1078,13 @@ A lot of crypto algorithms involve computing $A^B$ and $A^B\ mod\ C$.
 
 Why is this?
 
-Let's meet Anne and Bob.\footnote{Cryptographers always talk about
-Anne, Bob, Charles, David and on. Can you guess why?} Anne and Bob
+Let's meet Alice and Bob.\footnote{Cryptographers always talk about
+Alice, Bob, Carol, Dan and on. Can you guess why?} Alice and Bob
 both know two numbers $x$ and $y$.
 
-Ann chooses some random number $R$ and computes a message $M = R^x$.
-Ann sends $M$ to Bob. Bob receives $M$ and computes $S=M^y$. Ann can also
-compute $S=M^y$. $S$ is now a ``shared secret'' - both Ann and Bob
+Alice chooses some random number $R$ and computes a message $M = R^x$.
+Alice sends $M$ to Bob. Bob receives $M$ and computes $S=M^y$. Alice can also
+compute $S=M^y$. $S$ is now a ``shared secret'' - both Alice and Bob
 know $S$ anybody watching the communication seems only $M$ so they
 cannot figure out the value of $S$ without knowing $y$ or $y$.
 
