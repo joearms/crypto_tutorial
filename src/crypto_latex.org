@@ -742,7 +742,7 @@ validates the content of another file.
 The Challeng-Response algorithm ensures that no plain text passwords
 is sent over the wire.
 
-Here's an example. Assume the \verb+joe+ has password
+Here's an example. Assume that \verb+joe+ has password
 \verb+"bingo"+. The interaction between a client and server is as follows:
 
 \begin{verbatim}
