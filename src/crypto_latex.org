@@ -732,7 +732,7 @@ The algorithm fails if we don't give it three different shares:
       in function  shamir:'-recover/1-lc$^2/1-1-'/2 (shamir.erl, line 48)
       in call from shamir:recover/1 (shamir.erl, line 48)
 
-      Again the shared secret should be a password that unlocks or
+Again the shared secret should be a password that unlocks or
 validates the content of another file.
 
 * Applications
