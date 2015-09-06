@@ -268,7 +268,7 @@ wrapper around the original code.
 
 LCGs are pretty poor sources of random numbers, I've just used them
 here for illustration. A better symmetric algorithm is AES256 which is
-part of the Advance Encryption Standard. AES assumes the data to be
+part of the Advanced Encryption Standard. AES assumes the data to be
 encrypted is a multiple of 16 bytes log and requires salting. A simple
 interface the the Erlang crypto application is in the module
 \verb+ez_crypt_aes.erl+
