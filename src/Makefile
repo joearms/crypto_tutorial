@@ -10,7 +10,7 @@ PDFLATEX  = @echo "  PDFLATEX\t$<"; /usr/texbin/pdflatex
 all: beams crypto.pdf
 
 crypto.pdf: expand.tex
-	latexmk -pdf crypto.tx
+	latexmk -pdf crypto.tex
 
 publish:
 	make crypto.pdf

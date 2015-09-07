@@ -5,6 +5,19 @@ refer to the archive at
 \url{http://joearms.github.com/crypto_tutorial}. All the code for
 this tutorial is in the archive.
 
+\textsl{Warning: Do not use this code in production} -- Code like this
+is fine for \textsl{understanding} cryptographic algorithms but it is
+not intended for large-scale production. For production system more
+in-depth knowledge of cryptography is required. I'm fully aware that
+AES256 and 1024 bit RSA keys are not considered ``state of the
+art''\footnote{So don't bother to tell me, I know!}  but for the
+purposes of \textsl{understanding the algorithms} a 32 bit RSA key suffices!
+
+Always remember that the security of a system depends upon the weakest
+link, which in many cases boils down to key-management\footnote{So
+don't loose your passwords, or give them away!}.
+
+
 ** Understanding not code
 
 In this tutorial, I'm going to introduce a number of simple
@@ -53,12 +66,12 @@ communication mechanism to transmit the data.
 I'll go into these in detail:
 
 \begin{itemize}
-\item RSA
-\item AES256
-\item SHA1
-\item Padding
-\item Salting
-\item Secret sharing
+\item RSA.
+\item AES256.
+\item SHA1.
+\item Padding.
+\item Salting.
+\item Secret sharing.
 \end{itemize}
 
 ** Applications
@@ -344,9 +357,9 @@ message digest or simply the digest.
 The ideal cryptographic hash function has four main properties:
 
 \begin{itemize}
-  \item it is easy to compute the hash value for any given message
-  \item it is infeasible to generate a message that has a given hash
-  \item it is infeasible to modify a message without changing the hash
+  \item it is easy to compute the hash value for any given message.
+  \item it is infeasible to generate a message that has a given hash.
+  \item it is infeasible to modify a message without changing the hash.
   \item it is infeasible to find two different messages with the same hash.
 \end{itemize}
 
@@ -1085,8 +1098,8 @@ both know two numbers $x$ and $y$.
 Alice chooses some random number $R$ and computes a message $M = R^x$.
 Alice sends $M$ to Bob. Bob receives $M$ and computes $S=M^y$. Alice can also
 compute $S=M^y$. $S$ is now a ``shared secret'' - both Alice and Bob
-know $S$ anybody watching the communication seems only $M$ so they
-cannot figure out the value of $S$ without knowing $y$ or $y$.
+know $S$ anybody watching the communication sees only $M$ so they
+cannot figure out the value of $S$ without knowing both $x$ and $y$.
 
 In its various forms the fact that $(K^x)^y = (K^y)^x$ pops up in
 many algorithms and is the basic reason why RSA and Diffie-Hellman
@@ -1477,5 +1490,13 @@ the program corresponds to the math, we probably could not understand
 the math.}
 
 So this is where I end.
+
+To delve deeper I can recommend the following:
+
+\begin{itemize}
+\item \url{https://www.schneier.com/books/applied_cryptography/}
+\item \url{https://www.crypto101.io/} 
+\end{itemize}
+
 
 
