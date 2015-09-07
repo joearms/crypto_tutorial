@@ -732,7 +732,7 @@ The algorithm fails if we don't give it three different shares:
       in function  shamir:'-recover/1-lc$^2/1-1-'/2 (shamir.erl, line 48)
       in call from shamir:recover/1 (shamir.erl, line 48)
 
-      Again the shared secret should be a password that unlocks or
+Again the shared secret should be a password that unlocks or
 validates the content of another file.
 
 * Applications
@@ -740,9 +740,9 @@ validates the content of another file.
 ** Application 1: Challenge-Response
 
 The Challeng-Response algorithm ensures that no plain text passwords
-is sent over the wire.
+are sent over the wire.
 
-Here's an example. Assume the \verb+joe+ has password
+Here's an example. Assume that \verb+joe+ has password
 \verb+"bingo"+. The interaction between a client and server is as follows:
 
 \begin{verbatim}
@@ -1088,7 +1088,7 @@ compute $S=M^y$. $S$ is now a ``shared secret'' - both Alice and Bob
 know $S$ anybody watching the communication seems only $M$ so they
 cannot figure out the value of $S$ without knowing $y$ or $y$.
 
-In it's various forms the fact that $(K^x)^y = (K^y)^x$ pops up in
+In its various forms the fact that $(K^x)^y = (K^y)^x$ pops up in
 many algorithms and is the basic reason why RSA and Diffie-Hellman
 work.
 
