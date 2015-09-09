@@ -136,13 +136,13 @@ works as we progress throughout this tutorial.
 
 If we encode the same thing many times we would like to get different
 crypto text for each encoding. This is to make the attacker's life more
-difficult. A common way to do this is to add ``salt'' to the
-password that is used to encrypt the data.  The salt (which is a
-random number) is transmitted together with the crypto text; this
-ensures that if the same text is encrypted many times each encryption
-will result in different crypto text.
+difficult. A common way to do this is to add ``salt'' to the password
+that is used to encrypt the data.  The salt (which is a random number)
+is transmitted together with the crypto text; this ensures that if the
+same text is encrypted many times each encryption will result in different
+crypto text.
 
-Note: Encrypting known fragments of text in the input text helped crack
+Note: encrypting known fragments of text in the input text, helped to crack
 the enigma machine in WWII and lead to the development of computers.
 
 
@@ -260,8 +260,8 @@ Which looks much better. The code for this can be found in
 
 ** Adding Salt
 
-The problem with the previous algorithm is that if we encrypt the
-same text many times with the same password the encrypted text is
+The problem with the previous algorithm is that, if we encrypt the
+same text many times with the same password, the encrypted text is
 always the same.
 
 To remedy this, we generate a random string each time and
@@ -283,7 +283,7 @@ LCGs are pretty poor sources of random numbers, I've just used them
 here for illustration. A better symmetric algorithm is AES256 which is
 part of the Advanced Encryption Standard. AES assumes the data to be
 encrypted is a multiple of 16 bytes log and requires salting. A simple
-interface the the Erlang crypto application is in the module
+interface, the Erlang crypto application is in the module
 \verb+ez_crypt_aes.erl+
 
 ># {include_function, "ez_crypt_test.erl", aes_test, 0}.
@@ -310,7 +310,7 @@ This kind of code has an initialization step:
 
     S0 = crypto:stream_init(Type, Password)
 
-\verb+S0+ is an initial state. When new data \verb+Bin+ is to be encrypted
+\verb+S0+ is an initial state. When new data \verb+Bin+ is to be encrypted,
 we call:
 
     {S1, C1} = crypto:stream_encrypt(S0, Bin)
@@ -319,7 +319,7 @@ we call:
 encrypter which must be used in the next encryption call.\footnote{Yes
 it's a Monad!}
 
-To illustrate stream encryption we can set up a pair of processes and
+To illustrate stream encryption, we can set up a pair of processes and
 set up a stream encryption channel between them:
 
 Typical client code looks like this:
