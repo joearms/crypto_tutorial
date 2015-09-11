@@ -1168,7 +1168,7 @@ $c^{d} = m^{ed} \ mod \ N$\\
 $= m^{1 + k\phi(N)} \ mod\  N$\\
 $= m^{1}.(m^{\phi(N)} \ mod \ N)^k$\\
 
-But $m^{\phi(N)} mod N = 1$ is Euler's theorm\footnote{also known as the Fermat-Euler
+But $m^{\phi(N)} mod N = 1$ is Euler's theorem\footnote{also known as the Fermat-Euler
   theorem of Eulers's totient theorem}, thus:
 
 $c^{d} = m^{1}.(1)^k$\\
