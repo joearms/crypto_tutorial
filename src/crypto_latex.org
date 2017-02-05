@@ -2,7 +2,7 @@
 
 This is ``work in progress'' - if you wish to contribute please
 refer to the archive at
-\url{http://joearms.github.com/crypto_tutorial}. All the code for
+\url{http://github.com/joearms/crypto_tutorial}. All the code for
 this tutorial is in the archive.
 
 \textsl{Warning: Do not use this code in production} -- Code like this
